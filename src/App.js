@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { Navbar } from "./Coponents/Navbar";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Project from "./Coponents/Project";
+import Helpus from "./Coponents/Helpus";
+import ServicesList from "./Coponents/Automotiv";
+import Prac from "./Coponents/Prac";
+import MakeAPIcall from "./Coponents/Apicall";
+import Appcall from "./Coponents/Apicall";
+import Shop from "./Coponents/Shop";
+import Practise from "./Coponents/Practise";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* <BrowserRouter>
+      <Routes>
+        <Route index element={<Project/>}/>
+      </Routes>
+      </BrowserRouter>
+       <Helpus/>
+      <ServicesList/>  
+       <Prac/>
+      <Appcall/>
+       */}
+      <Shop />
+      <Practise />
     </div>
   );
 }
