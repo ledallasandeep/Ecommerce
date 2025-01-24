@@ -2,141 +2,37 @@ import React, { useState } from "react";
 import { FaRegStar } from "react-icons/fa";
 import { FaTv } from "react-icons/fa";
 import { LuLamp } from "react-icons/lu";
-import { PiTShirt } from "react-icons/pi";
-import { BsHandbag } from "react-icons/bs";
-import { LiaBabySolid } from "react-icons/lia";
+import { PiTShirtBold } from "react-icons/pi";
+import { PiHandbagBold } from "react-icons/pi";
+import { FaBaby } from "react-icons/fa";
 import { Navbar } from "./Navbar";
 import { useDispatch } from "react-redux";
 import { increment } from "./Redux/CartSlice";
+import { Link } from "react-router-dom";
+import RelatedProduct from "./Relatedproduct";
 
-const Shop = () => {
+const Shop = ({ items }) => {
   const disPatch = useDispatch();
   const cartHandler = () => {
     disPatch(increment());
   };
 
-  const [show, setShow] = useState(1);
-  const showHandler = (id) => {
-    setShow(id);
+  const [show, setShow] = useState("all");
+
+  const filterByProduct = (category) => {
+    setShow(category);
   };
 
-  const products = [
-    {
-      id: 1,
-      image: "./trending.jpg",
-      image2: "./child.png",
-      image3: "./child2.jpg",
-      image4: "./electronics.png",
-      image5: "./furniture.jpg",
-      image6: "./fashion.jpg",
-      image7: "./handbag.jpg",
-      name: " camera",
-    },
-    {
-      id: 2,
-      image: "./trending.jpg",
-      image2: "./child.png",
-      image3: "./child2.jpg",
-      image4: "./electronics.png",
-      image5: "./furniture.jpg",
-      image6: "./fashion.jpg",
-      image7: "./handbag.jpg",
-      name: " camera2",
-    },
-    {
-      id: 3,
-      image: "./trending.jpg",
-      image2: "./child.png",
-      image3: "./child2.jpg",
-      image4: "./electronics.png",
-      image5: "./furniture.jpg",
-      image6: "./fashion.jpg",
-      image7: "./handbag.jpg",
-      name: " camera",
-    },
-    {
-      id: 4,
-      image: "./trending.jpg",
-      image2: "./child.png",
-      image3: "./child2.jpg",
-      image4: "./electronics.png",
-      image5: "./furniture.jpg",
-      image6: "./fashion.jpg",
-      image7: "./handbag.jpg",
-      name: " camera",
-    },
-    {
-      id: 5,
-      image: "./trending.jpg",
-      image2: "./child.png",
-      image3: "./child2.jpg",
-      image4: "./electronics.png",
-      image5: "./furniture.jpg",
-      image6: "./fashion.jpg",
-      image7: "./handbag.jpg",
-      name: " camera",
-    },
-    {
-      id: 6,
-      image: "./trending.jpg",
-      image2: "./child.png",
-      image3: "./child2.jpg",
-      image4: "./electronics.png",
-      image5: "./furniture.jpg",
-      image6: "./fashion.jpg",
-      image7: "./handbag.jpg",
-      name: " camera",
-    },
-    {
-      id: 7,
-      image: "./trending.jpg",
-      image2: "./child.png",
-      image3: "./child2.jpg",
-      image4: "./electronics.png",
-      image5: "./furniture.jpg",
-      image6: "./fashion.jpg",
-      image7: "./handbag.jpg",
-      name: " camera",
-    },
-    {
-      id: 8,
-      image: "./trending.jpg",
-      image2: "./child.png",
-      image3: "./child2.jpg",
-      image4: "./electronics.png",
-      image5: "./furniture.jpg",
-      image6: "./fashion.jpg",
-      image7: "./handbag.jpg",
-      name: " camera",
-    },
-    {
-      id: 9,
-      image: "./trending.jpg",
-      image2: "./child.png",
-      image3: "./child2.jpg",
-      image4: "./electronics.png",
-      image5: "./furniture.jpg",
-      image6: "./fashion.jpg",
-      image7: "./handbag.jpg",
-      name: " camera",
-    },
-    {
-      id: 10,
-      image: "./trending.jpg",
-      image2: "./child.png",
-      image3: "./child2.jpg",
-      image4: "./electronics.png",
-      image5: "./furniture.jpg",
-      image6: "./fashion.jpg",
-      image7: "./handbag.jpg",
-      name: " camera",
-    },
-  ];
+  // Filter items based on the selected category
+  const filteredItems =
+    show === "all"
+      ? items
+      : items.filter((product) => product.category === show);
+
   return (
     <div>
-      <Navbar />
       <div className="w-[100%] h-[300px] bg-blue-300 flex justify-between  ">
-        <div className="flex flex-col gap-5 justify-start text-start  h-[60%] w-[30%] p-10 my-5 mx-20">
+        <div className="flex flex-col gap-5 justify-start text-start  h-[60%] w-[30%] p-10 my-5 mx-10">
           <h1 className="text-xl font-bold">
             PlayStation VR Mega Pack Bundle 3
           </h1>
@@ -150,122 +46,132 @@ const Shop = () => {
         </div>
         <img src="vr.png" className="w-[45%] h-[100%] mx-[8%]" />
       </div>
-
       <div className="bg-gray-200 p-5 m-2">
         <div className="flex items-center justify-between ">
           <h1 className="text-xl font-bold">Search Trending</h1>
           <div
             className={`${
-              show === 1
+              show === "trending"
                 ? "border-b-2 border-solid border-blue-500 pb-2  "
                 : " border-none"
-            }  flex flex-col  items-center  `}
+            }  flex flex-col  items-center hover:scale-110 hover:scale-110 `}
           >
-            <FaRegStar onClick={() => showHandler(1)} className="text-2xl" />
+            <FaRegStar
+              onClick={() => filterByProduct("all")}
+              className="text-2xl"
+            />
             <h1>Hot Trending</h1>
           </div>
           <div
             className={`${
-              show === 2
+              show === "electronics"
                 ? "border-b-2 border-solid border-blue-500 pb-2 "
                 : "border-none"
-            }  flex flex-col  items-center  `}
+            }  flex flex-col  items-center hover:scale-110  `}
           >
             <FaTv
-              onClick={() => showHandler(2)}
+              onClick={() => filterByProduct("Electronics")}
               className=" text-2xl  text-black-500 "
             />
             <h1>Electronics</h1>
           </div>
           <div
             className={`${
-              show === 3
+              show === "furniture"
                 ? "border-b-2 border-solid border-blue-500 pb-2 "
                 : "border-none"
-            }  flex flex-col  items-center  `}
+            }  flex flex-col  items-center hover:scale-110  `}
           >
             <LuLamp
-              onClick={() => showHandler(3)}
+              onClick={() => filterByProduct("Furniture")}
               className=" text-2xl  text-black-500 "
             />
             <h1>Furniture</h1>
           </div>
           <div
             className={`${
-              show === 4
+              show === "fashion"
                 ? "border-b-2 border-solid border-blue-500 pb-2 "
                 : "border-none"
-            }  flex flex-col  items-center  `}
+            }  flex flex-col  items-center hover:scale-110  `}
           >
-            <PiTShirt
-              onClick={() => showHandler(4)}
-              className=" text-2xl  text-black-500 "
+            <PiTShirtBold
+              onClick={() => filterByProduct("Clothing")}
+              className=" text-2xl font-bold text-black-500 "
             />
+
             <h1>Fashion</h1>
           </div>
           <div
             className={`${
-              show === 5
+              show === "handbags"
                 ? "border-b-2 border-solid border-blue-500 pb-2 "
                 : "border-none"
-            }  flex flex-col  items-center  `}
+            }  flex flex-col  items-center hover:scale-110  `}
           >
-            <BsHandbag
-              onClick={() => showHandler(5)}
-              className=" text-2xl  text-black-500 "
+            <PiHandbagBold
+              onClick={() => filterByProduct("Accessories")}
+              className=" text-2xl font-bold text-black-500 "
             />
+
             <h1>Handbags</h1>
           </div>
           <div
             className={`${
-              show === 6
+              show === "baby"
                 ? "border-b-2 border-solid border-blue-500 pb-2 "
                 : "border-none"
-            }  flex flex-col  items-center  `}
+            }  flex flex-col  items-center hover:scale-110  `}
           >
-            <LiaBabySolid
-              onClick={() => showHandler(6)}
+            <FaBaby
+              onClick={() => filterByProduct("Baby Clothing")}
               className=" text-2xl  text-black-500"
             />
+
             <h1>BabyStore</h1>
           </div>
         </div>
       </div>
-      {show === 1 && (
-        <div className="flex flex-wrap gap-11 p-2 mx-20 ">
-          {products.map((product) => (
-            <div
-              key={product.id}
-              className="w-1/6 p-4 shadow-lg rounded-lg bg-white"
-            >
+
+      <div className="flex flex-wrap gap-12  p-2 mx-10 justify-center ">
+        {filteredItems.map((item) => (
+          <div
+            key={item.id}
+            className="w-1/6 p-4 shadow-lg rounded-lg bg-white hover:bg-sky-300 hover:scale-110  hover:scale-110 "
+          >
+            <Link to={`/Productpage/${item.id}`}>
               <img
-                src={product.image}
-                alt={product.name}
+                src={item.image}
+                alt={item.name}
                 className="h-26 w-full object-cover rounded-md"
               />
-              <h3 className="text-center mt-2">{product.name}</h3>
-              <button
-                onClick={cartHandler}
-                className="bg-yellow-300 p-1.5 px-4 font-semibold mt-2 text-[13px] rounded"
-              >
-                Add to cart
-              </button>
-            </div>
-          ))}
-        </div>
-      )}
-      {show === 2 && (
-        <div className="flex flex-wrap gap-11 p-2 mx-20  ">
-          {products.map((product) => (
+            </Link>
+
+            <h3 className="text-center mt-2">{item.name}</h3>
+            <button
+              onClick={cartHandler}
+              className="bg-yellow-300 p-1.5 px-4 font-semibold mt-2 text-[13px] rounded"
+            >
+              Add to cart
+            </button>
+          </div>
+        ))}
+      </div>
+
+      {/* {filterByProduct === "Electronics" && (
+        <div className="flex flex-wrap gap-12 p-2 mx-10  ">
+          {filterByProduct.map((product) => (
             <div
               key={product.id}
-              className="w-1/6 p-4 shadow-lg rounded-lg bg-white"
+              className="w-1/6 p-4 shadow-lg rounded-lg bg-white hover:bg-sky-300 hover:scale-110 "
             >
-              <img
-                src={product.image4}
-                alt={product.name}
-                className="h-26 w-full object-cover rounded-md"
-              />
+              <Link to={`/Productpage/${product.id}`}>
+                <img
+                  src={product.image2}
+                  alt={product.name}
+                  className="h-26 w-full object-cover rounded-md"
+                />
+              </Link>
               <h3 className="text-center mt-2">biscuit</h3>
               <button
                 onClick={cartHandler}
@@ -276,13 +182,13 @@ const Shop = () => {
             </div>
           ))}
         </div>
-      )}
-      {show === 3 && (
-        <div className="flex flex-wrap gap-11 p-2 mx-20  ">
-          {products.map((product) => (
+      )} */}
+      {/* {show === "furniture" && (
+        <div className="flex flex-wrap gap-12 p-2 mx-10  ">
+          {items.map((product) => (
             <div
               key={product.id}
-              className="w-1/6 p-4 shadow-lg rounded-lg bg-white"
+              className="w-1/6 p-4 shadow-lg rounded-lg bg-white hover:bg-sky-300 hover:scale-110 "
             >
               <img
                 src={product.image5}
@@ -300,12 +206,12 @@ const Shop = () => {
           ))}
         </div>
       )}
-      {show === 4 && (
-        <div className="flex flex-wrap gap-11 p-2 mx-20  ">
-          {products.map((product) => (
+      {show === "fashion" && (
+        <div className="flex flex-wrap gap-12 p-2 mx-10  ">
+          {items.map((product) => (
             <div
               key={product.id}
-              className="w-1/6 p-4 shadow-lg rounded-lg bg-white"
+              className="w-1/6 p-4 shadow-lg rounded-lg bg-white hover:bg-sky-300 hover:scale-110 "
             >
               <img
                 src={product.image6}
@@ -323,12 +229,12 @@ const Shop = () => {
           ))}
         </div>
       )}
-      {show === 5 && (
-        <div className="flex flex-wrap gap-11 p-2 mx-20  ">
-          {products.map((product) => (
+      {show === "handbags" && (
+        <div className="flex flex-wrap gap-12 p-2 mx-10  ">
+          {items.map((product) => (
             <div
               key={product.id}
-              className="w-1/6 p-4 shadow-lg rounded-lg bg-white"
+              className="w-1/6 p-4 shadow-lg rounded-lg bg-white hover:bg-sky-300 hover:scale-110 "
             >
               <img
                 src={product.image7}
@@ -346,12 +252,12 @@ const Shop = () => {
           ))}
         </div>
       )}
-      {show === 6 && (
-        <div className="flex flex-wrap gap-11 p-2 mx-20  ">
-          {products.map((product) => (
+      {show === "baby" && (
+        <div className="flex flex-wrap gap-12 p-2 mx-10  ">
+          {items.map((product) => (
             <div
               key={product.id}
-              className="w-1/6 p-4 shadow-lg rounded-lg bg-white"
+              className="w-1/6 p-4 shadow-lg rounded-lg bg-white hover:bg-sky-300 hover:scale-110 "
             >
               <img
                 src={product.image3}
@@ -368,7 +274,8 @@ const Shop = () => {
             </div>
           ))}
         </div>
-      )}
+      )}  */}
+      {/* <img src={trend1} alt="" /> */}
     </div>
   );
 };
