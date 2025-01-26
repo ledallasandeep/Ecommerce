@@ -1,31 +1,31 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// Initial state of the cart
 const initialState = {
-  value: 0, // The value represents the number of items in the cart
+  cart: [],
 };
 
-export const cartSlice = createSlice({
-  name: "shopCart", // This is the name of the slice
-  initialState, // Set the initial state here
+const cartSlice = createSlice({
+  name: "cart",
+  initialState,
   reducers: {
-    // Action to increment the cart item count
-    increment: (state) => {
-      state.value += 1; // Increase the cart value by 1
+    addtoCart: (state, action) => {
+      const existingItem = state.cart.find(
+        (item) => item.id === action.payload.id
+      );
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        state.cart.push({ ...action.payload, quantity: 1 });
+      }
     },
-    // Action to decrement the cart item count
-    decrement: (state) => {
-      state.value -= 1; // Decrease the cart value by 1
+    removeFromCart: (state, action) => {
+      state.cart = state.cart.filter((item) => item.id !== action.payload);
     },
-    // Action to reset the cart item count
-    reset: (state) => {
-      state.value = 0; // Reset the cart value to 0
+    clearCart: (state) => {
+      state.cart = [];
     },
   },
 });
 
-// Export actions from the slice
-export const { increment, decrement, reset } = cartSlice.actions;
-
-// Export the reducer to be used in the store
+export const { addtoCart, removeFromCart, clearCart } = cartSlice.actions;
 export default cartSlice.reducer;

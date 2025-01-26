@@ -15,17 +15,7 @@ export const Navbar = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     navigate(`/search/${searchItem}`);
-  };
-
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const toggleCart = () => setIsCartOpen(!isCartOpen);
-
-  const [quantity, setQuantity] = useState(1);
-  const pricePerItem = 399;
-  const totalPrice = quantity * pricePerItem;
-
-  const changeQuantity = (change) => {
-    setQuantity((prevQuantity) => Math.max(1, prevQuantity + change));
+    searchItem("");
   };
 
   const [change, setChange] = useState(false);
@@ -33,7 +23,7 @@ export const Navbar = () => {
     setChange(!change);
   };
 
-  const updatedCart = useSelector((state) => state.shopCart?.value || 0); // Fallback to 0 if undefined
+  const cartItems = useSelector((state) => state.cart.cart.length); // Fallback to 0 if undefined
 
   return (
     <div className="">
@@ -55,10 +45,12 @@ export const Navbar = () => {
           <h1 className="bg-red-500 rounded-full text-white text-[8px] font-bold px-1.5 py-0.5 absolute right-[70px] top-[1px]">
             0
           </h1>
-          <GrCart className="text-[20px] font-bold" onClick={toggleCart} />
-          <h1 className="bg-red-500 rounded-full text-white text-[8px] font-bold px-1.5 py-0.5 absolute right-[12px] top-[1px]">
-            {updatedCart}
-          </h1>
+          <Link to={"/cart"}>
+            <GrCart className="text-[20px] font-bold" />
+            <h1 className="bg-red-500 rounded-full text-white text-[8px] font-bold px-1.5 py-0.5 absolute right-[12px] top-[1px]">
+              {cartItems}
+            </h1>
+          </Link>
         </div>
       </div>
 
@@ -93,65 +85,6 @@ export const Navbar = () => {
           </Link>
         </div>
       </div>
-
-      {isCartOpen && (
-        <div className="fixed inset-0  bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="p-10 w-[70%] bg-white rounded-lg shadow-xl">
-            <div className="flex justify-between items-center w-[60%] m-auto">
-              <div className="flex">
-                <img
-                  src="./trend1.jpg"
-                  alt="Product Image"
-                  className="w-[120px] h-[80px] rounded-lg shadow-xl"
-                />
-                <div className="flex flex-col gap-[2px] p-2 items-start mx-2">
-                  <h1 className="text-xl font-semibold text-start w-full">
-                    Hoodie
-                  </h1>
-                  <h1 className="text-sm font-semibold text-start w-full">
-                    Rs {pricePerItem}
-                  </h1>
-                </div>
-              </div>
-              <div className="flex items-center gap-[15px]">
-                <button
-                  onClick={() => changeQuantity(-1)}
-                  className="px-5 bg-transparent border-red-700 border-[1.5px] text-red-700 text-[19px] font-[900] rounded-lg hover:bg-red-600 focus:outline-none hover:text-white"
-                >
-                  -
-                </button>
-
-                <div className="flex items-center justify-center text-xl font-semibold">
-                  {quantity}
-                </div>
-
-                <button
-                  onClick={() => changeQuantity(1)}
-                  className="px-5 bg-transparent border-red-700 border-[1.5px] text-red-700 text-xl font-[900] rounded-lg hover:bg-red-600 focus:outline-none hover:text-white"
-                >
-                  +
-                </button>
-              </div>
-            </div>
-            <hr className="border-b-1 border-gray-400 w-[60%] mx-auto my-5" />
-            <div className="flex justify-between mx-auto w-[60%]">
-              <h1 className="text-lg font-semibold">Total Amount</h1>
-              <h1 className="text-lg font-semibold">Rs {totalPrice}</h1>
-            </div>
-            <div className="flex justify-end gap-3 my-2 w-[65%] m-auto">
-              <button
-                className="text-sm text-black font-semibold rounded-2xl p-[5px] px-[20px] border-red-500 border-[1.5px] hover:bg-red-600 focus:outline-none hover:text-white"
-                onClick={toggleCart}
-              >
-                Close
-              </button>
-              <button className="text-sm text-white font-semibold rounded-2xl p-[5px] px-[20px] bg-green-600">
-                Order
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

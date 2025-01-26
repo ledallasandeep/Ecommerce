@@ -9,6 +9,7 @@ import ProductDetails from "./Coponents/ProductDetails";
 import Jeevana from "./Coponents/Trending";
 import items from "./Coponents/Data";
 import Searchitem from "./Coponents/Searchitem";
+import CartComponent from "./Coponents/CartComponent";
 
 function App() {
   const [data, setData] = useState([...items]);
@@ -21,6 +22,7 @@ function App() {
           <Route path="/Productpage/:id" exact element={<ProductDetails />} />
           <Route path="/electronics/:id" exact element={<Jeevana />} />
           <Route path="/search/:item" exact element={<Searchitem />} />
+          <Route path="/cart" exact element={<CartComponent />} />
         </Routes>
       </BrowserRouter>
     </div>

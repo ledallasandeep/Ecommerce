@@ -57,7 +57,7 @@ const items = [
       average_rating: 4.7,
       total_reviews: 210,
     },
-    image: "./makeupkit.jpg",
+    image: "./furn2.jpg",
   },
   {
     id: "5",
@@ -72,7 +72,7 @@ const items = [
       average_rating: 4.3,
       total_reviews: 130,
     },
-    image: "./winterjacket.jpg",
+    image: "./furn1.jpg",
   },
   {
     id: "6",
